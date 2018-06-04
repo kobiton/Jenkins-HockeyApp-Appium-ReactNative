@@ -10,7 +10,7 @@
 
 3. You should see the username. 
 
-![username](../../images/2-username.png)
+![username](../../images/2-user.png)
 
 * API key
 1. Click on your name in the upper righthand corner again and select settings. 
@@ -24,7 +24,7 @@
 
 ![automation](../../images/2-automation.png)
 
-3. On the right hand side, you can select your preferred language, and in the left side of the window you will see the desiredCaps. 
+3. On the left hand side, you can select your preferred language, and in the right side of the window you will see the desiredCaps. 
 
 ![automation-settings](../../images/2-automation-settings.png)
 
@@ -47,7 +47,7 @@ docker run -d -p 8080:8080 jenkins
 ```
 docker ps
 ```
-Copy the status and enter it in the next command.  
+Copy the status (highlighted in the image below) and enter it in the next command.  
 
 ![status](../../images/2-status.png)
 
@@ -56,7 +56,7 @@ docker exec -it 0b541bce2145 /bin/bash
 ```
 Copy the admin password that shows up, and go to http://localhost:8080
 
-Enter in your Kobiton username and password. Enter the admin password you got from the terminal when Jenkins prompts you to do so. 
+Enter in your Kobiton username and password. After logging in, enter the admin password you got from the terminal when Jenkins prompts you to do so. 
 
 ### 2.2.1 For Jenkins Freestyle
 On the left side on the page, click on New Item to start a new Jenkins project. 
@@ -84,9 +84,11 @@ For examples of automation tests, go to https://github.com/kobiton/samples . Cho
 
 Follow our guide on how to trigger a Jenkins build from a Git push and set up the configurations stated. 
 
-Add NodeJS Plugin on Jenkins. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it. 
+This guide is executing the NodeJS test script from the Koboton samples, so we will add the NodeJS Plugin on Jenkins to execute NodeJS script as a build step. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it. 
 
 ![manage-plugins](../../images/2-manage-plugins.png)
+
+If you are using a different language, you may try to find a suitable plugin for your project if necessary. 
 
 Go to Configure in your Jenkins project. Add a build step, execute shell. 
 

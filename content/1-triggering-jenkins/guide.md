@@ -8,14 +8,6 @@ Upload the app you want to test to a GitHub repo.
 
 Go to Jenkins and create a new freestyle project.
 
-<!-- Refer to the this tutorial https://medium.com/@marc_best/trigger-a-jenkins-build-from-a-github-push-b922468ef1ae to :
-- install the GitHub integration Plugin 
-- prepare the Github repository
-- add Jenkins Github plugin service
-- give the Jenkins user access to the Gihub repository
-- deploy SSH key
-- update Jenkins job with GitHub configuration -->
-
 1. Install the GitHub integration plugin
 
 On Jenkins, go to 'Manage Jenkins' and then click on 'Manage Plugins'. 
@@ -23,6 +15,8 @@ On Jenkins, go to 'Manage Jenkins' and then click on 'Manage Plugins'.
 ![manage-jenkins](../../images/2-manage-jenkins.png)
 
 Click on the tab 'Available', search for the GitHub Integration Plugin, and install it.
+
+![github-integration-plugin](../../images/2-github-integration-plugin.png)
 
 2. Prepare GitHub repository
 
@@ -49,10 +43,26 @@ In GitHub, go to 'Settings' and 'Deploy keys'. Click on 'Add deploy key' and pas
 
 ![deploy-key](../../images/2-deploy-key.png)
 
-To check everything is working, enter the following command as the Jenkins user in your console. 
+Since we are running Jenkins in a Docker container, we need to run commands as the Jenkins user and not just in your local terminal. 
+
+To do this, go to your terminal and enter 
 ```
-ssh git@github.com
+docker ps
 ```
+Copy the status. 
+
+![status](../../images/2-status.png)
+
+Then run this command with your status:
+```
+docker exec -it 0b541bca2145 /bin/bash
+```
+Now that you are in the console as the Jenkins user. To check everything is working, enter the following: 
+```
+jenkins@04n971ew0224:/$ ssh git@github.com
+```
+
+
 If everything is correct, you should see: 
 ```
 PTY allocation request failed on channel 0
@@ -76,11 +86,9 @@ You may see an error from adding your repository URL if your "Credentials" are s
 
 ![error](../../images/2-error.png)
 
-To fix this, you must set up the credentials under "Source Code Management" under "Repositories" in the configuration.
+To fix this, we must add a credential. Under the "Source Code Management" section in "Credentials", click on the 'Add' button.
 
 ![credentials](../../images/2-credentials.png)
-
-To add a Credential, click on the 'Add' button next to 'Credentials'. 
 
 There are several kinds of credentials you may choose.
 
@@ -102,7 +110,7 @@ You may leave the ID and Description empty.
 
 Select the Credential you just created in the Credentials dropdown. 
 
-For more information on setting up the credentials, refer to https://www.thegeekstuff.com/2016/10/jenkins-git-setup/
+>For more information on setting up the credentials, refer to https://www.thegeekstuff.com/2016/10/jenkins-git-setup/
 
 Under the 'Build Triggers' section, check the box with 'GitHub hook trigger for GITScm polling'. 
 
