@@ -24,7 +24,7 @@
 
 ![automation](../../images/2-automation.png)
 
-3. On the left hand side, you can select your preferred language, and in the right side of the window you will see the desiredCaps. 
+3. On the left hand side, you can select your preferred language, as well as any other variables you would like to adjust, such as **App Type**, **Device Group**, and **Orientation**. Adjusting the settings on the left side will affect the desiredCaps, which you can find in the right side of the window. 
 
 ![automation-settings](../../images/2-automation-settings.png)
 
