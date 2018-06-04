@@ -84,7 +84,7 @@ For examples of automation tests, go to https://github.com/kobiton/samples . Cho
 
 Follow our guide on how to trigger a Jenkins build from a Git push and set up the configurations stated. 
 
-This guide is executing the NodeJS test script from the Koboton samples, so we will add the NodeJS Plugin on Jenkins to execute NodeJS script as a build step. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it. 
+This guide is executing the NodeJS test script from the Kobiton samples, so we will add the NodeJS Plugin on Jenkins to execute NodeJS script as a build step. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it. 
 
 ![manage-plugins](../../images/2-manage-plugins.png)
 
