@@ -1,8 +1,10 @@
 # Triggering a Jenkins build from a push to GitHub
 
-Upload the app you want to test to a GitHub repo. 
+This guide will demonstrate how to get Jenkins to build your project everytime your source code is changed and pushed to GitHub. 
 
-Go to Jenkins and create a new freestyle project.
+### Prerequisites
+
+* Install Jenkins
 
 #### 1.1 Install the GitHub integration plugin
 
@@ -39,42 +41,15 @@ In GitHub, go to 'Settings' and 'Deploy keys'. Click on 'Add deploy key' and pas
 
 ![deploy-key](assets/2-deploy-key.png)
 
-Since we are running Jenkins in a Docker container, we need to run commands as the Jenkins user and not just in your local terminal. 
-
-To do this, go to your terminal and enter 
-```
-docker ps
-```
-Copy the status. 
-
-![status](assets/2-status.png)
-
-Then run this command with your status:
-```
-docker exec -it 0b541bca2145 /bin/bash
-```
-Now that you are in the console as the Jenkins user. To check everything is working, enter the following: 
-```
-jenkins@04n971ew0224:/$ ssh git@github.com
-```
-
-
-If everything is correct, you should see: 
-```
-PTY allocation request failed on channel 0
-Hi lilyhdo! You've successfully authenticated, but GitHub does not provide shell access.
-Connection to github.com closed.
-```
-
 #### 1.3 Allow Jenkins to access GitHub repository
+
+* Upload the app you want to test to a GitHub repo. 
+
+* Go to Jenkins and create a new freestyle project.
 
 * In Jenkins, go to the configuration of your project. Under the tab 'General', check the box that says 'GitHub project' and enter in your project url. 
 
 ![githubproject](assets/2-githubproject.png)
-
-* Under the 'Build Triggers' section, check the box with 'GitHub hook trigger for GITScm polling'. 
-
-![trigger](assets/2-trigger.png)
 
 * Under the Source Code Management, add the repository URL with 'git@github.com:' before your repo. 
 
@@ -82,33 +57,37 @@ Connection to github.com closed.
 
 > Troubleshooting
 
-* You may see an error from adding your repository URL if your "Credentials" are set to "None".  
+You may see an error from adding your repository URL if your "Credentials" are set to "None".  
 
 ![error](assets/2-error.png)
 
-* To fix this, we must add a credential. Under the "Source Code Management" section in "Credentials", click on the 'Add' button.
+To fix this, we must add a credential. Under the "Source Code Management" section in "Credentials", click on the 'Add' button.
 
 ![credentials](assets/2-credentials.png)
 
-* There are several kinds of credentials you may choose.
+There are several kinds of credentials you may choose.
 
 1. Username with password
 
-* Enter in the username that will be used to connect to the git repository. You may leave the ID and Description field empty. 
+Enter in the username that will be used to connect to the git repository. You may leave the ID and Description field empty. 
     
 ![user-with-pass](assets/2-username-with-password.png)
 
 2. SSH Username with private key
 
-* Enter in the username that will be used to connect to the git repository.
+Enter in the username that will be used to connect to the git repository.
 
-* There are three options for the Private Key. If you choose to Enter directly, you may have to retrieve your RSA private key.
+There are three options for the Private Key. If you choose to Enter directly, you may have to retrieve your RSA private key.
 
-* Enter in The passphrase for your key. 
+Enter in The passphrase for your key. 
 
-* You may leave the ID and Description empty. 
+You may leave the ID and Description empty. 
 
-* Select the Credential you just created in the Credentials dropdown. 
+Select the Credential you just created in the Credentials dropdown. 
+
+* Under the 'Build Triggers' section, check the box with 'GitHub hook trigger for GITScm polling'. 
+
+![trigger](assets/2-trigger.png)
 
 **Jenkins (GitHub plugin)**
 

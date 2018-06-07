@@ -6,6 +6,7 @@ If you are a company with a domain, ex: https://awesome-mapp.com and you use:
 - Jenkins to build the app
 - HockeyApp for keeping the daily app build
 - Appium to write the automation test
+- ReactNative to write app
 
 The guidelines in this repo will show you how to trigger a Jenkins build from a push on GitHub (i.e. everytime a change is made to your source code), and how to run automation tests with Kobiton. 
 
