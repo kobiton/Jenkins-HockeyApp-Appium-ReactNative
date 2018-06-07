@@ -20,7 +20,7 @@ Go to Jenkins and create a new freestyle project.
 
 ![jenkins-git](assets/2-jenkinsgit.png)
 
-* Once you've added the plugin, click on it. For 'Jenkins hook url', enter in the URL of your Jenkins instance, followed by /github-webhook/ 
+* Once you've added the plugin, click on it. For 'Jenkins hook url', enter in the URL of your Jenkins instance, e.g. https://awesome-mapp.com/, followed by /github-webhook/ 
 
 ![jenkins-hook](assets/2-jenkins-hook.png)
 
@@ -113,4 +113,3 @@ Connection to github.com closed.
 **Jenkins (GitHub plugin)**
 
 Make a push to your GitHub repository and then check Jenkins to see if a build was done successfully. 
-

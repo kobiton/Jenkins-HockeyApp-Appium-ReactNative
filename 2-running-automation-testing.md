@@ -3,7 +3,7 @@
 #### 2.1 Prepare Kobiton configuration for executing automation testing
 
 * #### Username 
-1. Go to portal.kobiton.com
+1. Go to https://portal.kobiton.com/
 2. In the upper right hand corner, click on your name and in the drop down menu, click on Profile. 
 
 ![profile](assets/2-profile-user.png)
