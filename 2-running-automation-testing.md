@@ -6,27 +6,27 @@
 1. Go to portal.kobiton.com
 2. In the upper right hand corner, click on your name and in the drop down menu, click on Profile. 
 
-![profile](../assets/2-profile.png)
+![profile](assets/2-profile-user.png)
 
 3. You should see the username. 
 
-![username](../assets/2-user.png)
+![username](assets/2-username.png)
 
 * #### API key
 1. Click on your name in the upper righthand corner again and select settings. 
 2. You should be able to find your API key under 'API Keys'. 
 
-![api-key](../assets/2-apikey.png)
+![api-key](assets/2-apikey.png)
 
 * #### Desired cap
 1. In the navigation bar at the top of the Kobiton website, select Devices. 
 2. Hover over any device and click on the Automation settings button (the gear symbol). 
 
-![automation](../assets/2-automation.png)
+![automation](assets/2-automation.png)
 
 3. On the left hand side, you can select your preferred language, as well as any other variables you would like to adjust, such as **App Type**, **Device Group**, and **Orientation**. Adjusting the settings on the left side will affect the desiredCaps, which you can find in the right side of the window. 
 
-![automation-settings](../assets/2-automation-settings.png)
+![automation-settings](assets/2-automationsettings.png)
 
 ## 2.2 Create new Jenkins project to execute the automation test
 
@@ -48,15 +48,15 @@ Choose a language for your test script, and decide whether you want to test on A
 
 On the left side on the page, click on New Item to start a new Jenkins project. 
 
-![new-item](../assets/2-new-item.png)
+![new-item](assets/2-new-item.png)
 
 Enter in a name for the project and select 'Freestyle project'. Hit 'OK'. 
 
-![project](../assets/2-project.png)
+![project](assets/2-project.png)
 
 Go to Configure in your Jenkins project. Add a build step, execute shell. 
 
-![build-execute-shell](../assets/2-build-executeshell.png)
+![build-execute-shell](assets/2-build-execute-shell.png)
 
 Enter this in the command. Enter your own Kobiton  username and API key as well as the desired device and platform you wish to test with. The below example will execute the android-web-test script sample from Kobiton. 
 ```
@@ -69,13 +69,13 @@ npm run android-web-test
 
 This guide is executing the NodeJS test script from the Kobiton samples, so we will add the NodeJS Plugin on Jenkins to execute NodeJS script as a build step. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it.
 
-![manage-plugins](../assets/2-manage-plugins.png)
+![manage-plugins](assets/2-manageplugins.png)
 
 If you are using a different language, you may try to find a suitable plugin for your project if necessary.
 
 Under build environment, check the box that says 'Provide Node & npm bin/ folder to PATH'.
 
-![build-environment](../assets/2-build-environment.png)
+![build-environment](assets/2-build-environment.png)
 
 **2.2.3 Trigger Jenkins project by pushing on GitHub**
 
@@ -94,57 +94,32 @@ To make a request:
 Use bash to generate base64 and make http with 'curl' tool. 
 
 ```
-echo $1 | python -m base64 -d
+echo username:apikey | python -m base64
 ```
 
-Use the base 64 generated to prepare basic authentication
+Use the base64 generated to prepare basic authentication
 
-<!-- Another way is to insert the following in your test script. 
-
-```javascript
-var basicAuth = "Basic " + new Buffer(username + ":" + apiKey).toString("base64"); 
-var response = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}`, {
-    headers: { 'Authorization': basicAuth }
-})
-const body = await response.json()
-``` -->
-
-
+```
+curl -X GET https://api.kobiton.com/v1/sessions \
+  -H 'Authorization: Basic dGVzdHVzZXI6MTIzZWQtMTIzZmFjLTkxMzdkY2E='
+  -H 'Accept: application/json'
+```
 
 - Get session info
 ```
-GET /sessions
+GET /sessions{sessionId}
 ```
 To make a request:
+```
+curl -X GET https://api.kobiton.com/v1/sessions/{sessionId} \
+  -H 'Authorization: Basic dGVzdHVzZXI6MTIzZWQtMTIzZmFjLTkxMzdkY2E='
+  -H 'Accept: application/json'
+```
 
 With this line of code, you can print the session information to the console. 
 ```javascript
 console.log(sessionCapabilities)
 ```
-<!-- to access more specific information within the sessionCapabilities -->
-
-How to get this information:
-
-Session name
-    - sessionCapabilities.sessionName
-
-Session description
-    - sessionCapabilities.sessionDescription
-
-Device orientation
-    - sessionCapabilities.deviceOrientation
-
-Device name
-    - sessionCapabilities.deviceName
-
-Platform name
-    - sessionCapabilities.platformName
-
-App
-    - sessionCapabilities.app
-
-Kobiton session id
-    - sessionCapabilities.kobitonSessionId
 
 - Get session commands
 ```
@@ -152,40 +127,16 @@ GET /sessions/{sessionId}/commands
 ```
 To make a request:
 
-```javascript
-var commandsResponse = await fetch(`https://api-test.kobiton.com/v1/sessions/${sessionId}/commands`, {
-    headers: { 'Authorization': basicAuth }
-})
-console.log(commandsResponse)
-const commandsBody = await commandsResponse.json()
-console.log(commandsBody)
+```Shell
+curl -X GET https://api.kobiton.com/v1/sessions/{sessionId}/commands \
+  -H 'Authorization: Basic dGVzdHVzZXI6MTIzZWQtMTIzZmFjLTkxMzdkY2E='
+  -H 'Accept: application/json'
+
 ```
 To get to a certain page in your commands, add the page number to the commands URL. For example:
 ```javascript
 `https://api-test.kobiton.com/v1/sessions/${sessionId}/commands?page=2`
 ```
-
-
-How to get the following information:
-
-* App version
-```javascript
-var appVersionId = body.executionData.desired.appVersionId
-var appVersionResponse = await fetch(`https://api-test.kobiton.com/v1/app/versions/${appVersionId}`, {
-    headers: { 'Authorization': basicAuth }
-})
-var appVersionBody = await appVersionResponse.json()
-console.log(appVersionBody)
-```
-* Logs url 
-```javascript
-body.log
-```
-* Video url
-```javascript
-body.video
-```
-> Note: Log and video URL may not be available immediately
 
 > For more details on how to retrieve information about your session, go to https://api.kobiton.com/docs/
 
@@ -202,8 +153,8 @@ The test is a either a success or failure.
     - Go to portal.kobiton.com
     - In the navigation bar at the top of the page, click on 'Support'
 
-    ![support](../assets/2-support.png)
+    ![support](assets/2-support.png)
 
     - Fill in the information for your request and submit your ticket
 
-    ![submit-ticket](../assets/2-submit-ticket.png)
+    ![submit-ticket](assets/2-submit-ticket.png)
