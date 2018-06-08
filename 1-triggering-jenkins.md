@@ -39,7 +39,7 @@ cat /var/lib/jenkins/.ssh/id_rsa.pub
 ```
 In GitHub, go to 'Settings' and 'Deploy keys'. Click on 'Add deploy key' and paste the SSH key you just created. 
 
-![deploy-key](assets/2-deploy-key.png)
+![deploy-key](assets/2-deploykeys.png)
 
 #### 1.3 Allow Jenkins to access GitHub repository
 
@@ -49,21 +49,21 @@ In GitHub, go to 'Settings' and 'Deploy keys'. Click on 'Add deploy key' and pas
 
 * In Jenkins, go to the configuration of your project. Under the tab 'General', check the box that says 'GitHub project' and enter in your project url. 
 
-![githubproject](assets/2-githubproject.png)
+![githubproject](assets/2-github-project.png)
 
 * Under the Source Code Management, add the repository URL with 'git@github.com:' before your repo. 
 
-![source-code-management](assets/2-source-code-management.png)
+![sourcecode-management](assets/2-sourcecode-management.png)
 
 > Troubleshooting
 
 You may see an error from adding your repository URL if your "Credentials" are set to "None".  
 
-![error](assets/2-error.png)
+![failure-error](assets/2-failure-error.png)
 
 To fix this, we must add a credential. Under the "Source Code Management" section in "Credentials", click on the 'Add' button.
 
-![credentials](assets/2-credentials.png)
+![credential](assets/2-credential.png)
 
 There are several kinds of credentials you may choose.
 
