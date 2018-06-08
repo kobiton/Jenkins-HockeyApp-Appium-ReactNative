@@ -4,7 +4,9 @@ This guide will demonstrate how to get Jenkins to build your project everytime y
 
 ### Prerequisites
 
-* Install Jenkins
+* Jenkins is installed, let's assume it's at https://ci.awesome-mapp.com
+
+*Follow the steps below to setup Jenkins for GitHub* 
 
 #### 1.1 Install the GitHub integration plugin
 

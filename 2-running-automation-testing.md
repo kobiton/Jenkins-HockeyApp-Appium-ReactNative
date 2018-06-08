@@ -91,19 +91,20 @@ PUT /sessions/{sessionId}
 ``` 
 To make a request:
 
-Use bash to generate base64 and make http with 'curl' tool. 
+1. Encode your credential in base64 for HTTP Basic Authentication, you may use below command and note the text result
 
 ```
-echo username:apikey | python -m base64
+echo -n <your username>:<your api-key> | base64
 ```
-
-Use the base64 generated to prepare basic authentication
+2. Use encoded base64 from above in curl commands, like below
 
 ```
 curl -X GET https://api.kobiton.com/v1/sessions \
   -H 'Authorization: Basic dGVzdHVzZXI6MTIzZWQtMTIzZmFjLTkxMzdkY2E='
   -H 'Accept: application/json'
 ```
+
+Below are necessary Kobiton Rest API endpoints that you may need.
 
 - Get session info
 ```
