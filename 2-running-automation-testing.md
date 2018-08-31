@@ -64,7 +64,7 @@ Enter this in the command. Enter your own Kobiton  username and API key as well 
 [ ! -d "samples" ] && git clone https://github.com/kobiton/samples.git || echo "Samples already exist"
 cd samples/javascript
 npm install
-npm run android-web-test
+KOBITON_API_KEY=... KOBITON_USERNAME=... npm run android-web-test
 ```
 
 This guide is executing the NodeJS test script from the Kobiton samples, so we will add the NodeJS Plugin on Jenkins to execute NodeJS script as a build step. To do this, go to 'Manage Jenkins' -> 'Manage Plugins' -> Available. Search for NodeJS and install it.
